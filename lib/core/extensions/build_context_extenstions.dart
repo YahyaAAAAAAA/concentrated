@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tweleve_ace/core/extensions/color_extensions.dart';
 import 'package:tweleve_ace/core/utils/constants.dart';
+import 'package:tweleve_ace/core/utils/global_colors.dart';
 
 extension BuildContextExtension on BuildContext {
   void push(
     Widget child, {
     Duration? duration,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transitionBuilder,
+        transitionBuilder,
   }) {
     //transitions moved to theme data
     //check any commit before "venue edit 95% done" commit for custom transitions
@@ -17,7 +19,7 @@ extension BuildContextExtension on BuildContext {
     Widget child, {
     Duration? duration,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transitionBuilder,
+        transitionBuilder,
   }) {
     Navigator.of(this).pushReplacement(
       PageRouteBuilder(
@@ -61,7 +63,7 @@ extension BuildContextExtension on BuildContext {
             ],
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: GColors.fern.shade100.withValues(alpha: 1),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(kOuterRadius),
@@ -76,9 +78,9 @@ extension BuildContextExtension on BuildContext {
   //animated dialog
   Future<Object?> dialog({
     required Widget Function(BuildContext, Animation<double>, Animation<double>)
-    pageBuilder,
+        pageBuilder,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transitionBuilder,
+        transitionBuilder,
     bool? barrierDismissible,
     Duration? transitionDuration,
   }) async {

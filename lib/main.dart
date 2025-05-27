@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:tweleve_ace/core/theme/app_theme.dart';
 import 'package:tweleve_ace/data/datasources/exam_remote_datasource.dart';
 import 'package:tweleve_ace/data/repositories_impl/exam_repo_impl.dart';
 import 'package:tweleve_ace/domain/usecases/extract_questions_from_pdf.dart';
@@ -11,10 +15,12 @@ import 'package:tweleve_ace/presentation/pages/home_page.dart';
 import 'package:http/http.dart' as http;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
 
-  //todo later preserve splash screen
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  //preserve splash screen
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   //firebase setup
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -27,6 +33,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
+
+    //set orientations
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
+
+    //todo fix shouldn't be here
     final examRepo = ExamRepositoryImpl(ExamRemoteDataSource(http.Client()));
     final getQuestionsUseCase = ExtractQuestionsFromPDF(examRepo);
     final uploadQuestions = UploadQuestions(examRepo);
@@ -37,10 +52,13 @@ class MyApp extends StatelessWidget {
           create: (_) => ExamCubit(getQuestionsUseCase, uploadQuestions),
         ),
       ],
-
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomePage(),
+        theme: appTheme(),
+        home: MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: const TextScaler.linear(1)),
+            child: const HomePage()),
       ),
     );
   }
