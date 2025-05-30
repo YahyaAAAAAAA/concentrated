@@ -1,4 +1,4 @@
-import 'package:tweleve_ace/domain/entities/question.dart';
+import 'package:tweleve_ace/features/exam/domain/entities/question.dart';
 
 abstract class ExamState {}
 

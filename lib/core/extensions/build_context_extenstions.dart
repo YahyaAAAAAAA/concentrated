@@ -4,7 +4,7 @@ import 'package:tweleve_ace/core/utils/constants.dart';
 import 'package:tweleve_ace/core/utils/global_colors.dart';
 
 extension BuildContextExtension on BuildContext {
-  void push(
+  void cpush(
     Widget child, {
     Duration? duration,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -15,7 +15,7 @@ extension BuildContextExtension on BuildContext {
     Navigator.of(this).push(MaterialPageRoute(builder: (context) => child));
   }
 
-  void replace(
+  void creplace(
     Widget child, {
     Duration? duration,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -32,7 +32,7 @@ extension BuildContextExtension on BuildContext {
     );
   }
 
-  void pop() {
+  void cpop() {
     Navigator.of(this).pop();
   }
 

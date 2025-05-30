@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:tweleve_ace/data/models/question_model.dart';
+import 'package:injectable/injectable.dart';
+import 'package:tweleve_ace/features/exam/data/models/question_model.dart';
 
+@injectable
 class ExamRemoteDataSource {
   final http.Client client;
 

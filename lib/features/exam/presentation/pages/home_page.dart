@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tweleve_ace/core/extensions/build_context_extenstions.dart';
 import 'package:tweleve_ace/core/extensions/int_extenstions.dart';
 import 'package:tweleve_ace/core/extensions/text_extensions.dart';
@@ -7,9 +8,8 @@ import 'package:tweleve_ace/core/utils/global_colors.dart';
 import 'package:tweleve_ace/core/widgets/app_app_bar.dart';
 import 'package:tweleve_ace/core/widgets/row_button.dart';
 import 'package:tweleve_ace/core/widgets/trinary_button.dart';
-import 'package:tweleve_ace/presentation/pages/question_list_page.dart';
-import 'package:tweleve_ace/presentation/widgets/admin_card.dart';
-import 'package:tweleve_ace/presentation/widgets/home_card.dart';
+import 'package:tweleve_ace/features/exam/presentation/widgets/admin_card.dart';
+import 'package:tweleve_ace/features/exam/presentation/widgets/home_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppAppBar(
         isOwner: true,
-        onOwnerButtonTap: () => context.push(QuestionListPage()),
+        onOwnerButtonTap: () => context.push('/questions'),
       ),
       body: Center(
         child: ConstrainedBox(
