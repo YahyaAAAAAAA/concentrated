@@ -5,27 +5,29 @@ import 'package:tweleve_ace/config/routes.dart';
 import 'package:tweleve_ace/core/extensions/build_context_extenstions.dart';
 import 'package:tweleve_ace/core/extensions/int_extenstions.dart';
 import 'package:tweleve_ace/core/extensions/text_extensions.dart';
-import 'package:tweleve_ace/features/exam/presentation/cubits/subjects/subjects_cubit.dart';
-import 'package:tweleve_ace/features/exam/presentation/cubits/subjects/subjects_states.dart';
+import 'package:tweleve_ace/features/exam/presentation/cubits/exams/exams_cubit.dart';
+import 'package:tweleve_ace/features/exam/presentation/cubits/exams/exams_states.dart';
 
-class SubjectsViewerPage extends StatefulWidget {
+class ExamsViewerPage extends StatefulWidget {
   final String grade;
+  final String subject;
 
-  const SubjectsViewerPage({
+  const ExamsViewerPage({
     super.key,
     required this.grade,
+    required this.subject,
   });
 
   @override
-  State<SubjectsViewerPage> createState() => _SubjectsViewerPageState();
+  State<ExamsViewerPage> createState() => _ExamsViewerPageState();
 }
 
-class _SubjectsViewerPageState extends State<SubjectsViewerPage> {
+class _ExamsViewerPageState extends State<ExamsViewerPage> {
   @override
   void initState() {
     super.initState();
 
-    context.read<SubjectsCubit>().getSubjectsByGrade(widget.grade);
+    context.read<ExamsCubit>().getExamsBySubject(widget.grade, widget.subject);
   }
 
   @override
@@ -35,37 +37,36 @@ class _SubjectsViewerPageState extends State<SubjectsViewerPage> {
         actions: [
           TextButton(
               onPressed: () {
-                context.read<SubjectsCubit>().getSubjectsByGrade('12.1');
+                // context.read<SubjectsCubit>().getSubjectsByGrade('12.1');
               },
               child: Text('data'))
         ],
       ),
-      body: BlocConsumer<SubjectsCubit, SubjectsStates>(
-          listener: (context, state) {
-        if (state is SubjectsError) {
+      body: BlocConsumer<ExamsCubit, ExamsStates>(listener: (context, state) {
+        if (state is ExamsError) {
           context.showSnackBar(state.message);
         }
       }, builder: (context, state) {
-        if (state is SubjectsLoaded) {
-          final subjects = state.subjects;
+        if (state is ExamsLoaded) {
+          final exams = state.exams;
           return Column(
             children: [
               ListView.separated(
-                itemCount: subjects.length,
+                itemCount: exams.length,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => 10.height,
                 itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      context.pushNamed(APR.exams.name, pathParameters: {
-                        'grade': widget.grade,
-                        'subject': subjects[index],
-                      });
-                    },
-                    child: Text(subjects[index]).secondary()),
+                    onTap: () =>
+                        context.pushNamed(APR.questions.name, pathParameters: {
+                          'grade': widget.grade,
+                          'subject': widget.subject,
+                          'exam': exams[index],
+                        }),
+                    child: Text(exams[index]).secondary()),
               ),
             ],
           );
-        } else if (state is SubjectsError) {
+        } else if (state is ExamsError) {
           return Text('data');
         } else {
           return Text('loading').primary();

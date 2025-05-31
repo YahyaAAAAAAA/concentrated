@@ -1,4 +1,7 @@
 main:
-    ☐ show exams
+    ✔ show exams @done(25-06-01 00:39)
+    ☐ add null,empty failures
+    ☐ add ui
+    ☐ make exams functional
     ☐ add uni path and exam
     ☐ add exams without pdf

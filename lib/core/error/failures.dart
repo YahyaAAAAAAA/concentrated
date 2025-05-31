@@ -1,25 +1,29 @@
+import 'package:tweleve_ace/core/utils/logger.dart';
+
 abstract class Failure {
   final String message;
+  final String? level;
 
-  Failure(this.message);
+  Failure(this.message, {this.level}) {
+    Logger.failure(message, level);
+  }
 }
 
-// For unexpected errors (fallback)
+//for unexpected errors (fallback)
 class UnexpectedFailure extends Failure {
-  UnexpectedFailure(super.message);
+  UnexpectedFailure(super.message, {super.level = 'UNEXPECTED'});
 }
 
-// For server/API-related failures
+//for server/API-related failures
 class ServerFailure extends Failure {
-  ServerFailure(super.message);
+  ServerFailure(super.message, {super.level = 'SERVER'});
 }
 
-// For Firestore or local DB errors
+//for Firestore or local DB errors
 class DatabaseFailure extends Failure {
-  DatabaseFailure(super.message);
+  DatabaseFailure(super.message, {super.level = 'DATABASE'});
 }
 
-// You can also define custom ones
 class NetworkFailure extends Failure {
-  NetworkFailure(super.message);
+  NetworkFailure(super.message, {super.level = 'NETWORK'});
 }

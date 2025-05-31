@@ -22,18 +22,22 @@ import 'package:tweleve_ace/features/exam/domain/repositories/exam_repo.dart'
     as _i754;
 import 'package:tweleve_ace/features/exam/domain/usecases/extract_questions_from_pdf.dart'
     as _i862;
-import 'package:tweleve_ace/features/exam/domain/usecases/get_exams_by_grade.dart'
-    as _i437;
+import 'package:tweleve_ace/features/exam/domain/usecases/get_exams_by_subject.dart'
+    as _i489;
+import 'package:tweleve_ace/features/exam/domain/usecases/get_questions_by_exam.dart'
+    as _i824;
 import 'package:tweleve_ace/features/exam/domain/usecases/get_subjects_by_grade.dart'
     as _i648;
 import 'package:tweleve_ace/features/exam/domain/usecases/upload_questions.dart'
     as _i912;
 import 'package:tweleve_ace/features/exam/presentation/cubits/exam_cubit.dart'
     as _i1050;
+import 'package:tweleve_ace/features/exam/presentation/cubits/exams/exams_cubit.dart'
+    as _i574;
+import 'package:tweleve_ace/features/exam/presentation/cubits/questions/questions_cubit.dart'
+    as _i224;
 import 'package:tweleve_ace/features/exam/presentation/cubits/subjects/subjects_cubit.dart'
     as _i58;
-import 'package:tweleve_ace/features/exam/presentation/cubits/viewer/exam_viewer_cubit.dart'
-    as _i107;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -58,16 +62,20 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i862.ExtractQuestionsFromPDF>(
         () => _i862.ExtractQuestionsFromPDF(gh<_i754.ExamRepository>()));
-    gh.factory<_i437.GetExamsByGrade>(
-        () => _i437.GetExamsByGrade(gh<_i754.ExamRepository>()));
+    gh.factory<_i489.GetExamsBySubject>(
+        () => _i489.GetExamsBySubject(gh<_i754.ExamRepository>()));
+    gh.factory<_i824.GetQuestionsByExam>(
+        () => _i824.GetQuestionsByExam(gh<_i754.ExamRepository>()));
     gh.factory<_i648.GetSubjectsByGrade>(
         () => _i648.GetSubjectsByGrade(gh<_i754.ExamRepository>()));
     gh.factory<_i912.UploadQuestions>(
         () => _i912.UploadQuestions(gh<_i754.ExamRepository>()));
+    gh.factory<_i224.QuestionsCubit>(
+        () => _i224.QuestionsCubit(gh<_i824.GetQuestionsByExam>()));
+    gh.factory<_i574.ExamsCubit>(
+        () => _i574.ExamsCubit(gh<_i489.GetExamsBySubject>()));
     gh.factory<_i58.SubjectsCubit>(
         () => _i58.SubjectsCubit(gh<_i648.GetSubjectsByGrade>()));
-    gh.factory<_i107.ExamViewerCubit>(
-        () => _i107.ExamViewerCubit(gh<_i437.GetExamsByGrade>()));
     gh.factory<_i1050.ExamCubit>(() => _i1050.ExamCubit(
           gh<_i862.ExtractQuestionsFromPDF>(),
           gh<_i912.UploadQuestions>(),

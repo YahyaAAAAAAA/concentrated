@@ -1,16 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tweleve_ace/core/error/failures.dart';
-import 'package:tweleve_ace/features/exam/domain/entities/loaded_exam.dart';
 import 'package:tweleve_ace/features/exam/domain/repositories/exam_repo.dart';
 
 @injectable
-class GetExamsByGrade {
+class GetExamsBySubject {
   final ExamRepository repository;
 
-  GetExamsByGrade(this.repository);
+  GetExamsBySubject(this.repository);
 
-  Future<Either<Failure, List<LoadedExam>>> call(String grade) {
-    return repository.getExamsByGrade(grade);
+  Future<Either<Failure, List<String>>> call(String grade, String subject) {
+    return repository.getExamsBySubject(grade, subject);
   }
 }

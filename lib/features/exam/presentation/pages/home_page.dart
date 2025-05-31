@@ -36,8 +36,10 @@ class _HomePageState extends State<HomePage> {
               Text('Start Studying...').primary(),
               5.height,
               HomeCard(
-                onPressed: () => context.pushNamed(APR.subjects.name,
-                    pathParameters: {'grade': '12.1'}),
+                onPressed: () {
+                  context.pushNamed(APR.subjects.name,
+                      pathParameters: {'grade': '12.1'});
+                },
                 url: 'https://i.ibb.co/HDRFVt4j/undraw-exams-d2tf-1.png',
                 backgroundColor: GColors.fern,
                 buttonColor: GColors.white,
