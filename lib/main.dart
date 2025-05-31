@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tweleve_ace/config/routes.dart';
+import 'package:tweleve_ace/core/bloc/blocs_provider.dart';
 import 'package:tweleve_ace/core/di/dependency_injection.dart';
 import 'package:tweleve_ace/core/theme/app_theme.dart';
 import 'package:tweleve_ace/firebase_options.dart';
@@ -38,13 +39,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context)
-          .copyWith(textScaler: const TextScaler.linear(1)),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter().router,
-        theme: appTheme(),
+    return AppBlocsProvider(
+      child: MediaQuery(
+        data: MediaQuery.of(context)
+            .copyWith(textScaler: const TextScaler.linear(1)),
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: AppRouter.router,
+          theme: appTheme(),
+          // home: HomePage(),
+        ),
       ),
     );
   }

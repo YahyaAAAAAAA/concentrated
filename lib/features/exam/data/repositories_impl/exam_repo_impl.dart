@@ -38,6 +38,22 @@ class ExamRepositoryImpl implements ExamRepository {
   }
 
   @override
+  Future<Either<Failure, List<String>>> getSubjectsByGrade(String grade) async {
+    try {
+      final gradeSnapshot =
+          await _firestore.collection('school').doc(grade).get();
+
+      final data = gradeSnapshot.data();
+      if (data == null || !data.containsKey('subjects')) {
+        return Left(UnexpectedFailure('No subjects found for this grade'));
+      }
+      return Right(List.from(data['subjects']));
+    } catch (e) {
+      return Left(UnexpectedFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<LoadedExam>>> getExamsByGrade(
       String grade) async {
     try {

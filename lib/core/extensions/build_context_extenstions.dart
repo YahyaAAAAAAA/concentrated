@@ -1,9 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tweleve_ace/config/routes.dart';
 import 'package:tweleve_ace/core/extensions/color_extensions.dart';
 import 'package:tweleve_ace/core/utils/constants.dart';
 import 'package:tweleve_ace/core/utils/global_colors.dart';
 
 extension BuildContextExtension on BuildContext {
+  //goPage,pushPage as replacement of push and go
+  void goPage(AppPage page, {Map<String, String>? pathParams}) {
+    String path = page.path;
+    pathParams?.forEach((key, value) {
+      path = path.replaceAll(':$key', value);
+    });
+    go(path);
+  }
+
+  void pushPage(
+    AppPage page, {
+    Map<String, String>? pathParams,
+    Map<String, String>? queryParams,
+  }) {
+    String path = page.path;
+    pathParams?.forEach((key, value) {
+      path = path.replaceAll(':$key', value);
+    });
+
+    if (queryParams != null && queryParams.isNotEmpty) {
+      final uri = Uri(path: path, queryParameters: queryParams);
+      path = uri.toString();
+    }
+
+    push(path);
+  }
+
   void cpush(
     Widget child, {
     Duration? duration,

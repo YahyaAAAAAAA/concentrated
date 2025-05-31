@@ -12,4 +12,6 @@ abstract class ExamRepository {
       List<Question> questions, SchoolExamPath path);
 
   Future<Either<Failure, List<LoadedExam>>> getExamsByGrade(String grade);
+
+  Future<Either<Failure, List<String>>> getSubjectsByGrade(String grade);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tweleve_ace/config/routes.dart';
 import 'package:tweleve_ace/core/extensions/build_context_extenstions.dart';
 import 'package:tweleve_ace/core/extensions/int_extenstions.dart';
 import 'package:tweleve_ace/core/extensions/text_extensions.dart';
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppAppBar(
         isOwner: true,
-        onOwnerButtonTap: () => context.push('/questions'),
+        onOwnerButtonTap: () => context.pushNamed(APR.editor.name),
       ),
       body: Center(
         child: ConstrainedBox(
@@ -35,7 +36,8 @@ class _HomePageState extends State<HomePage> {
               Text('Start Studying...').primary(),
               5.height,
               HomeCard(
-                onPressed: () {},
+                onPressed: () => context.pushNamed(APR.subjects.name,
+                    pathParameters: {'grade': '12.1'}),
                 url: 'https://i.ibb.co/HDRFVt4j/undraw-exams-d2tf-1.png',
                 backgroundColor: GColors.fern,
                 buttonColor: GColors.white,
