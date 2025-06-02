@@ -105,7 +105,7 @@ extension BuildContextExtension on BuildContext {
   }
 
   //animated dialog
-  Future<Object?> dialog({
+  Future<Object?> dialog<T extends Object?>({
     required Widget Function(BuildContext, Animation<double>, Animation<double>)
         pageBuilder,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -122,6 +122,17 @@ extension BuildContextExtension on BuildContext {
           transitionDuration ?? const Duration(milliseconds: 200),
       transitionBuilder:
           transitionBuilder ?? TransitionAnimations.slideFromBottom,
+    );
+  }
+}
+
+extension BottomSheetExtension on BuildContext {
+  Future<T?> sheet<T>({
+    required Widget Function(BuildContext) builder,
+  }) {
+    return showModalBottomSheet<T>(
+      context: this,
+      builder: builder,
     );
   }
 }

@@ -9,12 +9,14 @@ class RowButton extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
   final IconData icon;
+  final double? iconSize;
 
   const RowButton({
     super.key,
-    this.onPressed,
     required this.text,
     required this.icon,
+    this.onPressed,
+    this.iconSize,
   });
 
   @override
@@ -32,6 +34,7 @@ class RowButton extends StatelessWidget {
           SecondaryButton(
             onPressed: null,
             icon: icon,
+            iconSize: iconSize,
           ),
           Text(text).secondary(),
           Spacer(),

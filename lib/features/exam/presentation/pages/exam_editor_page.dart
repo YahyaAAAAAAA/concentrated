@@ -2,6 +2,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweleve_ace/core/extensions/build_context_extenstions.dart';
+import 'package:tweleve_ace/core/widgets/app_scaffold.dart';
+import 'package:tweleve_ace/core/widgets/app_sub_app_bar.dart';
+import 'package:tweleve_ace/core/widgets/primary_button.dart';
 import 'package:tweleve_ace/features/exam/domain/entities/question.dart';
 import 'package:tweleve_ace/features/exam/domain/entities/school_exam_path.dart';
 import 'package:tweleve_ace/features/exam/presentation/cubits/exam_cubit.dart';
@@ -27,8 +30,8 @@ class _ExamEditorPageState extends State<ExamEditorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Exam Questions")),
+    return AppScaffold(
+      appBar: AppSubAppBar(title: "Exam Extractor"),
       body: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
           if (state is ExamError) {
@@ -57,7 +60,6 @@ class _ExamEditorPageState extends State<ExamEditorPage> {
                             PathSelectorDialog(path: path),
                       ),
                       icon: Text('select path'),
-                      // icon: ,
                     ),
                     IconButton(
                       onPressed: () =>
@@ -104,32 +106,32 @@ class _ExamEditorPageState extends State<ExamEditorPage> {
             );
           }
 
-          return Center(
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    final result = await FilePicker.platform.pickFiles(
-                      allowMultiple: false,
-                      allowedExtensions: ['pdf'],
-                    );
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10,
+            children: [
+              PrimaryButton(
+                onPressed: () async {
+                  final result = await FilePicker.platform.pickFiles(
+                    allowMultiple: false,
+                    allowedExtensions: ['pdf'],
+                  );
 
-                    if (result != null) {
-                      pdfPath = result.files[0].path;
-                    }
-                  },
-                  child: const Text("Pick PDF"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (pdfPath != null) {
-                      context.read<ExamCubit>().extractQuestions(pdfPath!);
-                    }
-                  },
-                  child: Text(pdfPath ?? "Load Exam"),
-                ),
-              ],
-            ),
+                  if (result != null) {
+                    pdfPath = result.files[0].path;
+                  }
+                },
+                text: "Pick PDF",
+              ),
+              PrimaryButton(
+                onPressed: () {
+                  if (pdfPath != null) {
+                    context.read<ExamCubit>().extractQuestions(pdfPath!);
+                  }
+                },
+                text: pdfPath ?? "Load Exam",
+              ),
+            ],
           );
         },
       ),

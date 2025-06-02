@@ -5,3 +5,6 @@ main:
     ☐ make exams functional
     ☐ add uni path and exam
     ☐ add exams without pdf
+
+notes:
+    when di fails, remove annotation failed class -> flutter pub run build_runner (1-watch,2-build) --delete-conflicting-outputs , if presists -> flutter clean

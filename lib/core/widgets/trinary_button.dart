@@ -6,8 +6,13 @@ import 'package:tweleve_ace/core/widgets/app_button.dart';
 
 class TrinaryButton extends AppButton {
   final bool? hasBorder;
+  final double? width;
+  final double? height;
+
   const TrinaryButton({
     this.hasBorder = true,
+    this.height,
+    this.width,
     super.key,
     super.onPressed,
     super.child,
@@ -24,31 +29,36 @@ class TrinaryButton extends AppButton {
 
   @override
   Widget build(BuildContext context) {
-    return AppButton(
-      onPressed: onPressed,
-      padding: padding,
-      style: style ??
-          Theme.of(context).iconButtonTheme.style?.copyWith(
-                backgroundColor: WidgetStatePropertyAll(GColors.white),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(radius ?? kOuterRadius),
-                    side: hasBorder!
-                        ? BorderSide(
-                            color: GColors.sand.shade600,
-                            width: 1,
-                          )
-                        : BorderSide.none,
+    return SizedBox(
+      width: width,
+      height: height,
+      child: AppButton(
+        onPressed: onPressed,
+        padding: padding,
+        style: style ??
+            Theme.of(context).iconButtonTheme.style?.copyWith(
+                  backgroundColor: WidgetStatePropertyAll(GColors.white),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(radius ?? kOuterRadius),
+                      side: hasBorder!
+                          ? BorderSide(
+                              color: GColors.sand.shade600,
+                              width: 1,
+                            )
+                          : BorderSide.none,
+                    ),
                   ),
                 ),
-              ),
-      text: text,
-      icon: icon,
-      iconColor: iconColor ?? GColors.black,
-      textColor: textColor ?? GColors.black,
-      iconSize: iconSize,
-      textSize: textSize,
-      child: child,
+        text: text,
+        icon: icon,
+        iconColor: iconColor ?? GColors.black,
+        textColor: textColor ?? GColors.black,
+        iconSize: iconSize,
+        textSize: textSize,
+        child: child,
+      ),
     );
   }
 }

@@ -51,7 +51,8 @@ class ExamRepositoryImpl implements ExamRepository {
       if (data == null || !data.containsKey('subjects')) {
         return Left(UnexpectedFailure('No subjects found for this grade'));
       }
-      Logger.info(data['subjects']);
+      Logger.info(
+          '${List.from(data['subjects']).length} subjects from $grade loaded');
 
       return Right(List.from(data['subjects']));
     } catch (e) {
@@ -71,7 +72,7 @@ class ExamRepositoryImpl implements ExamRepository {
 
       final exams = examsSnapshot.docs.map((doc) => doc.id).toList();
 
-      Logger.info('${exams.length} exams loaded');
+      Logger.info('${exams.length} exams from $grade/$subject loaded');
       return Right(exams);
     } catch (e) {
       return Left(UnexpectedFailure(e.toString()));

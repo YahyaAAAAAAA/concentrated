@@ -25,13 +25,13 @@ extension TextExtensions on Text {
     );
   }
 
-  Text secondary() {
+  Text secondary({Color? color, FontWeight? fontWeight}) {
     return Text(
       data ?? '',
       style: TextStyle(
-        color: GColors.black,
+        color: color ?? GColors.black,
         fontSize: kNormalFontSize,
-        fontWeight: FontWeight.normal,
+        fontWeight: fontWeight ?? FontWeight.normal,
       ),
     );
   }
