@@ -67,7 +67,7 @@
 
 ###
 
-<p align="left">• Ongoing.</p>
+<p align="left">• Ongoing</p>
 
 ###
 
