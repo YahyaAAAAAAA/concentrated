@@ -63,6 +63,14 @@
 
 ###
 
+<h2 align="left">🟢 Project Status</h2>
+
+###
+
+<p align="left">• Ongoing.</p>
+
+###
+
 <h2 align="left">🟢 Contact</h2>
 
 <p align="left">• Email: yahya.amarneh73@gmail.com</p>
